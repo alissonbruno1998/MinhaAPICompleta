@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
 using DevIO.Data.Context;
 using DevIOApi.Configurations;
 using Microsoft.AspNetCore.Builder;
@@ -14,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using AutoMapper;
 
 namespace DevIOApi
 {
@@ -30,13 +30,19 @@ namespace DevIOApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<MeuDbContext>(options =>
-           {
-               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
-           });
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
 
             services.AddAutoMapper(typeof(Startup));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+
+            });
 
             services.ResolveDependences();
         }
@@ -55,9 +61,7 @@ namespace DevIOApi
             }
 
             app.UseHttpsRedirection();
- 
             app.UseMvc();
- 
         }
     }
-}
+} 
