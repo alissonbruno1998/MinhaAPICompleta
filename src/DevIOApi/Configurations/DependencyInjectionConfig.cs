@@ -15,14 +15,17 @@ namespace DevIOApi.Configurations
     {
         public static IServiceCollection ResolveDependences(this IServiceCollection services) 
         {
+                                //Fornecedor//
             services.AddScoped<MeuDbContext>();
             services.AddScoped<IFornecedorRepository, FornecedorRepository>();
             services.AddScoped<IFornecedorService, FornecedorService>();
             services.AddScoped<IEnderecoRepository, EnderecoRepository>();
 
+                                 //Produto//
             services.AddScoped<INotificador, Notificador>();
             services.AddScoped<IFornecedorService, FornecedorService>();
             services.AddScoped<IProdutoService, ProdutoService>();
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
 
             return services; 
         }

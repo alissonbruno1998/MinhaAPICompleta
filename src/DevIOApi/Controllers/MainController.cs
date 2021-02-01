@@ -37,7 +37,6 @@ namespace DevIOApi.Controllers
 
             return BadRequest(new
             {
-
                 success = false,
                 errors = _notificador.ObterNotificacoes().Select(n => n.Mensagem)
             });

@@ -44,7 +44,17 @@ namespace DevIOApi
 
             });
 
-            services.ResolveDependences();
+            services.AddCors(options =>
+              {
+                  options.AddPolicy(
+                      "Development",
+                      builder => builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials());
+              });
+
+             services.ResolveDependences();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,6 +70,7 @@ namespace DevIOApi
                 app.UseHsts();
             }
 
+            app.UseCors("Development");
             app.UseHttpsRedirection();
             app.UseMvc();
         }
