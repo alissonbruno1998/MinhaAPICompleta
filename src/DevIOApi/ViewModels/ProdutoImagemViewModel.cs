@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DevIO.Api.Extensions;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -6,10 +9,11 @@ using System.Threading.Tasks;
 
 namespace DevIOApi.ViewModels
 {
-    public class ProdutoViewModel
+    [ModelBinder(typeof(JsonWithFilesFormDataModelBinder), Name = "produto")]
+    public class ProdutoImagemViewModel
     {
         [Key]
-        public Guid Id { get; set; }
+        public Guid id { get; set; } 
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public Guid FornecedorId { get; set; }
@@ -21,7 +25,7 @@ namespace DevIOApi.ViewModels
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [StringLength(14, ErrorMessage = "O Campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 11)]
         public string Descricao { get; set; }
-        public string ImagemUpload { get; set; }
+        public IFormFile ImagemUpload { get; set; }
         public string Imagem { get; set; }
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public decimal Valor { get; set; }
