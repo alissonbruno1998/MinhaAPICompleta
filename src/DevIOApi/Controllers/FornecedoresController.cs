@@ -7,11 +7,12 @@ using DevIO.Business.Models;
 using DevIOApi.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using DevIO.Data.Repository;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DevIOApi.Controllers
 {
+    [Authorize]
     [Route("api/fornecedores")]
-     
     public class FornecedoresController : MainController
     {
         private readonly IFornecedorRepository _fornecedorRepository;
