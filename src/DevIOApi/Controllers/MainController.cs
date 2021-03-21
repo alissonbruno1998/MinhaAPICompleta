@@ -11,10 +11,22 @@ namespace DevIOApi.Controllers
     public abstract class MainController : ControllerBase
     {
         private readonly INotificador _notificador;
+        private readonly IUser AppUser;
 
-        protected MainController(INotificador notificador)
+        protected Guid Usuarioid { get; set; }
+        protected bool UsuarioAutenticato { get; set; }
+
+        protected MainController(INotificador notificador,
+                                 IUser appUser)
         {
             _notificador = notificador;
+            AppUser = appUser;
+
+            if (appUser.IsAuthenticated())
+            {
+                Usuarioid = appUser.GetUserId();
+                UsuarioAutenticato = true;
+            }
         }
 
         protected bool OperacaoValida()
