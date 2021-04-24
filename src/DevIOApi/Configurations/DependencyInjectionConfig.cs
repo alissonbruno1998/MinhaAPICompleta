@@ -1,4 +1,5 @@
-﻿using DevIO.Business.Intefaces;
+﻿using DevIO.Api.Configuration;
+using DevIO.Business.Intefaces;
 using DevIO.Business.Notificacoes;
 using DevIO.Business.Services;
 using DevIO.Data.Context;
@@ -6,10 +7,13 @@ using DevIO.Data.Repository;
 using DevIOApi.Extesions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static DevIO.Api.Configuration.SwaggerConfig;
 
 namespace DevIOApi.Configurations
 {
@@ -31,6 +35,8 @@ namespace DevIOApi.Configurations
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUser, AspNetUser>();
+
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
             return services; 
         }
